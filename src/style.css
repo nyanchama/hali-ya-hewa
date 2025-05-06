@@ -6,42 +6,79 @@ body {
     font-family: "Pangolin", cursive;
     font-weight: 400;
     font-style: normal;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;    /* Vertically center */
+    justify-content: center; /* Horizontally center */
 }
 
-#jiji{
+#jiji {
     border: 2px solid #87CEEB;
-    background-color: calc(#87CEEB + 0.5);
+    background-color: rgba(255, 255, 255, 0.7); /* semi-transparent white */
     width: 200px;
-    height: 50px;
+    height: 35px;
     border-radius: 20px;
+    margin-right: 20px;
 }
 
-#tafuta-jiji:hover{
-    background-color: #87CEEB;
-    color: white;
-}
-#tafuta-jiji:active{
-    background-color: #87CEEB;
-    color: white;
-}
-#tafuta{
+#tafuta {
     border: 2px solid #87CEEB;
-    background-color: calc(#87CEEB + 0.5);
-    width: 50px;
-    height: 50px;
-    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 60px;
+    height: 35px;
+    border-radius: 30px;
 }
+
+#tafuta:hover,
+#tafuta:active {
+    background-color: #87CEEB;
+    color: white;
+}
+
 .container {
-    background-color: rgba(253, 245, 250, 0.9);  /* 0.5 = 50% opacity */
+    background-color: rgba(253, 245, 250, 0.9);
     border-radius: 20px;
-    margin: 60px auto;
-    padding: 60px; /* Fixed: padding should not use `auto` */
-    display: block;
+    padding: 40px;
     width: 500px;
-    height: 300px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
-h1{
+
+main {
+    flex-grow: 1;
+    position: relative;
+}
+
+h1 {
     color: #87CEEB;
 }
-p{
+
+p {
+    color: blueviolet;
+    font-size: 20px;
+}
+
+.nyevu,
+.upepo {
+    color: magenta;
+}
+
+.joto {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+}
+
+footer {
+    color: forestgreen;
+    font-size: 10px;
+    font-family: "Pangolin", cursive;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 30px;
 }
