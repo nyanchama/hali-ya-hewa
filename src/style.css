@@ -9,17 +9,22 @@ body {
     margin: 0;
     padding: 0;
     /* height: 100vh; */
-    display: flex;
+    /* display: flex; */
     /* align-items: flex-start;     Align to top */
-    justify-content: center;     /* Horizontal centering */
+    /* justify-content: center;     Horizontal centering */
 }
- form{
+ 
+header{
     margin-bottom: 10px;
- }
+    border-bottom: rgba(7, 61, 83, 0.8); /* 50% transparent sky blue */
+    padding-bottom: 10px;
+}
+
+
 #jiji {
     border: 2px solid #87CEEB;
     background-color: rgba(255, 255, 255, 0.7);
-    width: 200px;
+    width: 70%;
     height: 35px;
     border-radius: 20px;
     margin-right: 20px;
@@ -28,7 +33,7 @@ body {
 #tafuta {
     border: none;
     background-color: blueviolet;
-    width: 60px;
+    width: 10%;
     height: 35px;
     border-radius: 30px;
     text-align: center;
@@ -58,20 +63,14 @@ input {
     background-color: rgba(253, 245, 250, 0.9);
     border-radius: 20px;
     padding: 40px;
-    width: 600px;
-    height: 300px;
-    /* box-sizing: border-box; */
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin-top: 60px; /* Move container down slightly from top */
+    width: 40%;
+    height: 30%;
+    margin: 60px auto; /* Move container down slightly from top */
+    display: block;
 }
-
-main {
-    flex-grow: 1;
+main{
     position: relative;
 }
-
 h1 {
     color: #87CEEB;
 }
@@ -79,10 +78,11 @@ h1 {
 p {
     color: blueviolet;
     font-size: 20px;
+    
 }
 
 .emoji {
-    font-size: 50px;
+    font-size: 30px;
     margin-right: 7px;
 }
 .temp {
@@ -99,9 +99,8 @@ p {
 
 .joto {
     position: absolute;
-    top: 0;
-    right: 0;
-    margin: 20px;
+    top: 10px;       /* distance from the top */
+    right: 10px;     /* move item to the right */
 }
 
 footer {
