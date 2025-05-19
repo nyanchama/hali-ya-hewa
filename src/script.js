@@ -82,6 +82,23 @@ function search(event) {
   let searchForm = document.querySelector("#form");
   searchForm.addEventListener("submit", search);
 
+  // Load Nairobi weather by default on page load
+function loadDefaultCity() {
+  let defaultCity = "Nairobi";
+  let cityElement = document.querySelector("#city-name");
+  cityElement.innerHTML = defaultCity;
+
+  let apiURL = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
+
+  axios.get(apiURL).then(showTemperature).catch(error => {
+    console.error("Default city weather fetch error:", error);
+  });
+}
+
+// Call it on page load
+loadDefaultCity();
+
+
  
   
 
