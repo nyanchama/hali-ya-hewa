@@ -1,104 +1,91 @@
 let apiKey = "tc347f3bd3c7a100oc636b4fc92cd062";
-// Days of the week in Swahili
-const daysSwahili = [
-    "Jumapili", "Jumatatu", "Jumanne", "Jumatano",
-    "Alhamisi", "Ijumaa", "Jumamosi"
-];
+const daysSwahili = ["Jumapili", "Jumatatu", "Jumanne", "Jumatano", "Alhamisi", "Ijumaa", "Jumamosi"];
 
-function getTemperatureEmoji(temp) {
-  if (temp <= 10) {
-    return "❄️"; // cold
-  } else if (temp <= 20) {
-    return "🌥️"; // cool
-  } else if (temp <= 30) {
-    return "🌤️"; // warm
-  } else {
-    return "🔥"; // hot
-  }
-}
-// Simulate weather description (e.g., "mawingu" = cloudy)
-// const weatherDescription = "mawingu";
-function showTemperature(response) {
-  let temperatureElement = document.querySelector(".temp");
-  let humidityElement = document.querySelector(".nyevu");
-  let windElement = document.querySelector(".upepo");
-  
-  let temperature = Math.round(response.data.temperature.current);
-  let humidity = response.data.temperature.humidity;
-  let wind = Math.round(response.data.wind.speed);
-  let emoji = getTemperatureEmoji(temperature);
-
-  // Update the emoji (overwrite previous emoji)
-  document.querySelector(".emoji").innerHTML = `${emoji}`;
-
-  // Update temperature, humidity, and wind info
-  temperatureElement.innerHTML = `${temperature}°C`;
-  humidityElement.innerHTML = `${humidity}%`;
-  windElement.innerHTML = `${wind} km/h`;
-}
-
-  
-  
-// Function to update the paragraph
 function updateTime() {
-    const now = new Date();
-
-    // Get Swahili day
-    const day = daysSwahili[now.getDay()];
-
-    // Format time as HH:MM
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-
-    const formatted = `${day}, ${hours}:${minutes}`;
-    document.getElementById("time").textContent = formatted;
+  const now = new Date();
+  const day = daysSwahili[now.getDay()];
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  document.querySelector("#time").textContent = `${day}, ${hours}:${minutes}`;
 }
 
-// Call the function once
-updateTime();
+function getEmoji(temp) {
+  if (temp < 10) return "❄️";
+  if (temp < 20) return "🌥️";
+  if (temp < 30) return "🌤️";
+  return "🔥";
+}
 
-// Optional: refresh every minute
-setInterval(updateTime, 60000);
+function displayCurrentWeather(response) {
+  const data = response.data;
+  const temp = Math.round(data.temperature.current);
+  const humidity = data.temperature.humidity;
+  const wind = Math.round(data.wind.speed);
+  const city = data.city;
+  const emoji = getEmoji(temp);
 
-function search(event) {
-    event.preventDefault();
-  
-    let searchInputElement = document.querySelector("#jiji");
-    let cityElement = document.querySelector("#city-name");
-    let city = searchInputElement.value.trim();
-    cityElement.innerHTML = city;
-  
-    let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-  
-    axios.get(apiURL).then(showTemperature).catch(error => {
-      console.error("Weather fetch error:", error);
-      cityElement.innerHTML = "City not found!";
-    });
+  document.querySelector("#city-name").textContent = city;
+  document.querySelector(".temp").textContent = `${temp}°C`;
+  document.querySelector(".nyevu").textContent = `${humidity}%`;
+  document.querySelector(".upepo").textContent = `${wind} km/h`;
+  document.querySelector(".emoji").textContent = emoji;
 
-    searchInputElement.value = "";
-  }
-  
-  // Add event listener to form
-  let searchForm = document.querySelector("#form");
-  searchForm.addEventListener("submit", search);
+  // Now fetch forecast
+  getForecast(city);
+}
 
-  // Load Nairobi weather by default on page load
-function loadDefaultCity() {
-  let defaultCity = "Nairobi";
-  let cityElement = document.querySelector("#city-name");
-  cityElement.innerHTML = defaultCity;
+function displayForecast(response) {
+  const forecast = response.data.daily.slice(1, 6); // skip today, get next 5
+  let forecastHTML = "";
 
-  let apiURL = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
+  forecast.forEach(function (day) {
+    const date = new Date(day.time * 1000);
+    const icon = `<img src="${day.condition.icon_url}" alt="${day.condition.description}" width="42" />`;
+    const dayName = daysSwahili[date.getDay()];
+    const max = Math.round(day.temperature.maximum);
+    const min = Math.round(day.temperature.minimum);
 
-  axios.get(apiURL).then(showTemperature).catch(error => {
-    console.error("Default city weather fetch error:", error);
+    forecastHTML += `
+      <div class="weather-forecast-day">
+        <div class="weather-forecast-date">${dayName}</div>
+        <div class="weather-forecast-icon">${icon}</div>
+        <div class="weather-forecast-temperatures">
+          <div class="weather-forecast-temperature"><strong>${max}°C</strong></div>
+          <div class="weather-forecast-temperature">${min}°C</div>
+        </div>
+      </div>`;
+  });
+
+  document.querySelector("#forecast").innerHTML = forecastHTML;
+}
+
+function getForecast(city) {
+  let url = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(url).then(displayForecast).catch(error => {
+    console.error("Forecast error:", error);
   });
 }
 
-// Call it on page load
-loadDefaultCity();
+function search(event) {
+  event.preventDefault();
+  const city = document.querySelector("#jiji").value.trim();
+  if (city.length === 0) return;
 
+  let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(url).then(displayCurrentWeather).catch(error => {
+    console.error("Weather error:", error);
+    document.querySelector("#city-name").textContent = "Haijapatikana!";
+  });
 
- 
-  
+  document.querySelector("#jiji").value = "";
+}
 
+// Initial load
+document.querySelector("#form").addEventListener("submit", search);
+updateTime();
+setInterval(updateTime, 60000);
+
+// Load default city
+axios
+  .get(`https://api.shecodes.io/weather/v1/current?query=Nairobi&key=${apiKey}&units=metric`)
+  .then(displayCurrentWeather);

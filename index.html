@@ -1,87 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="src/style.css">
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
   <title>Hali-ya-Hewa</title>
 </head>
 <body>
-  <div class ="container">
+  <div class="container">
     <header>
-      <form action="" method="get" id="form">
-        <input type="text" placeholder="Jina la jiji..." id="jiji" required >
-        <input type="submit" value="Tafuta"  id="tafuta">
+      <form id="form">
+        <input type="text" placeholder="Jina la jiji..." id="jiji" required />
+        <input type="submit" value="Tafuta" id="tafuta" />
       </form>
     </header>
     <main>
       <h1 id="city-name">Nairobi</h1>
       <p id="time">Jumatatu, 18:56</p>
-      <p>Unyevunyevu: <span class="nyevu">76% </span> Upepo: <span class="upepo">4.6km/h</span> </p>
-      </p> 
+      <p>Unyevunyevu: <span class="nyevu">--</span> Upepo: <span class="upepo">--</span></p>
       <div class="joto">
-        <p> <span class="emoji">☔</span> <span class="temp">18°C</span></p>   
+        <p><span class="emoji">⛅</span> <span class="temp">--°C</span></p>   
       </div>
-       <div class="weather-forecast">
-          <div class="weather-forecast-day">
-            <div class="weather-forecast-date">Tue</div>
-            <div class="weather-forecast-icon">🌤️</div>
-            <div class="weather-forecast-temperatures">
-              <div class="weather-forecast-temperature">
-                <strong>15°C</strong>
-              </div>
-              <div class="weather-forecast-temperature">9°C</div>
-            </div>
-          </div>
-          <div class="weather-forecast-day">
-            <div class="weather-forecast-date">Thur</div>
-            <div class="weather-forecast-icon">🌤️</div>
-            <div class="weather-forecast-temperatures">
-              <div class="weather-forecast-temperature">
-                <strong>15°C</strong>
-              </div>
-              <div class="weather-forecast-temperature">9°C</div>
-            </div>
-          </div>
-          <div class="weather-forecast-day">
-            <div class="weather-forecast-date">Fri</div>
-            <div class="weather-forecast-icon">🌤️</div>
-            <div class="weather-forecast-temperatures">
-              <div class="weather-forecast-temperature">
-                <strong>15°C</strong>
-              </div>
-              <div class="weather-forecast-temperature">9°C</div>
-            </div>
-          </div>
-          <div class="weather-forecast-day">
-            <div class="weather-forecast-date">Sat</div>
-            <div class="weather-forecast-icon">🌤️</div>
-            <div class="weather-forecast-temperatures">
-              <div class="weather-forecast-temperature">
-                <strong>15°C</strong>
-              </div>
-              <div class="weather-forecast-temperature">9°C</div>
-            </div>
-          </div>
-          <div class="weather-forecast-day">
-            <div class="weather-forecast-date">Sun</div>
-            <div class="weather-forecast-icon">🌤️</div>
-            <div class="weather-forecast-temperatures">
-              <div class="weather-forecast-temperature">
-                <strong>15°C</strong>
-              </div>
-              <div class="weather-forecast-temperature">9°C</div>
-            </div>
-          </div>
-        </div>
+      <div class="weather-forecast" id="forecast">
+        <!-- Forecast will be inserted here -->
+      </div>
     </main>
     <footer>
       Imetengenezwa na <a href="https://github.com/nyanchama">Nyanchama</a> na kuhifadhiwa na <a href="https://hali-ya-mbingu.netlify.app/">Netlify</a>
-     </footer>
+    </footer>
   </div>
   <script src="src/script.js"></script>
 </body>
